@@ -1,4 +1,4 @@
-package com.wolfpack.vridgeapi.enpoint;
+package com.wolfpack.vridgeapi.endpoint;
 
 import java.util.List;
 
