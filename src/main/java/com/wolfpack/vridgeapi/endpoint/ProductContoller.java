@@ -9,6 +9,7 @@ import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,7 @@ public class ProductContoller {
 	}
 
 	@PostMapping
-	public ResponseEntity addProductToFridge(Product product) {
+	public ResponseEntity addProductToFridge(@RequestBody Product product) {
 		try {
 			productService.addProduct(product);
 			return ResponseEntity.ok().build();
