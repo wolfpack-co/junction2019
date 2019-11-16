@@ -42,6 +42,18 @@ public class ProductController {
 
 	}
 
+
+	@GetMapping("/{creatorId}/others")
+	public ResponseEntity<List<Product>> getProductsForUsersExcept(@PathVariable int creatorId) {
+		try {
+			return ResponseEntity.ok(productService.getProductsForAllExcept(creatorId));
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
+	}
+
 	@PostMapping
 	public ResponseEntity addProductToFridge(@RequestBody Product product) {
 		try {

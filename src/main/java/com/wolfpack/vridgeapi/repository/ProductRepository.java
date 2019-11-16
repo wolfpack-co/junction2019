@@ -13,4 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 	List<Product> findAllByStatus(ProductStatus status);
 
 	List<Product> findAllByCreatorId(int creatorId);
+
+	List<Product> findAllByCreatorIdNotEquals(int creatorId);
 }

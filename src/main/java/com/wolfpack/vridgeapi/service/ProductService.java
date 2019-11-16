@@ -42,6 +42,14 @@ public class ProductService {
 		return new ArrayList<>();
 	}
 
+	public List<Product> getProductsForAllExcept(int creatorId) {
+		List<Product> products = productRepository.findAllByCreatorIdNotEquals(creatorId);
+		if (!products.isEmpty()) {
+			return products;
+		}
+		return new ArrayList<>();
+	}
+
 	public Product addProduct(Product product) {
 		product.setStatus(ProductStatus.AVAILABLE);
 		User creator = userRepository.findById(product.getCreator().getId());
