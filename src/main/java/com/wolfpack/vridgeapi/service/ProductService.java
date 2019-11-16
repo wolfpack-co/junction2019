@@ -8,6 +8,7 @@ import java.util.List;
 
 import com.wolfpack.vridgeapi.model.Product;
 import com.wolfpack.vridgeapi.model.ProductStatus;
+import com.wolfpack.vridgeapi.model.User;
 import com.wolfpack.vridgeapi.repository.ProductRepository;
 
 import com.wolfpack.vridgeapi.repository.UserRepository;
@@ -43,6 +44,8 @@ public class ProductService {
 
 	public Product addProduct(Product product) {
 		product.setStatus(ProductStatus.AVAILABLE);
+		User creator = userRepository.findById(product.getCreator().getId());
+		product.setCreator(creator);
 		if (product.getExpirationDate() == null) {
 			try {
 				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(DEFAULT_EXPIRATION_DATE_STRING);
