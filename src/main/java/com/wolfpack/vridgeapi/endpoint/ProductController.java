@@ -65,6 +65,18 @@ public class ProductController {
 		}
 	}
 
+	@PutMapping("/{productId}/{shared}") //changeSharedProductState
+	public ResponseEntity changeSharedProductState(@PathVariable("productId") int id,
+			@PathVariable("shared") boolean shared, @RequestBody Product product) {
+		try {
+			productService.changeSharedProductState(id, shared);
+			return ResponseEntity.ok().build();
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+		}
+	}
+
 	@PutMapping("/{productId}/book")
 	public ResponseEntity bookProduct(@PathVariable("productId") int id, @RequestBody Product product) {
 		try {

@@ -50,6 +50,13 @@ public class ProductService {
 		return new ArrayList<>();
 	}
 
+	public void changeSharedProductState(int productId, boolean shared) {
+		Product p = productRepository.getOne(productId);
+		p.setShared(shared);
+
+		productRepository.save(p);
+	}
+
 	public Product addProduct(Product product) {
 		product.setStatus(ProductStatus.AVAILABLE);
 		User creator = userRepository.findById(product.getCreator().getId());
