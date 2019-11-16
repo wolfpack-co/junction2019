@@ -34,8 +34,8 @@ public class Product {
 	@ManyToOne
 	private User creator;
 
-	@Column
-	private String consumer;
+	@ManyToOne
+	private User consumer;
 
 	@Column
 	private Date expirationDate = new Date();
@@ -57,8 +57,8 @@ public class Product {
 
 	}
 
-	public Product(String name, int quantity, int bookedQuantity, User creator,
-			String consumer, Date expirationDate, boolean isShared, ProductStatus status, ProductType type) {
+	public Product(String name, int quantity, int bookedQuantity, User creator, User consumer,
+			Date expirationDate, boolean isShared, ProductStatus status, ProductType type) {
 		this.name = name;
 		this.quantity = quantity;
 		this.bookedQuantity = bookedQuantity;
@@ -110,11 +110,11 @@ public class Product {
 		this.creator = creator;
 	}
 
-	public String getConsumer() {
+	public User getConsumer() {
 		return consumer;
 	}
 
-	public void setConsumer(String consumer) {
+	public void setConsumer(User consumer) {
 		this.consumer = consumer;
 	}
 
