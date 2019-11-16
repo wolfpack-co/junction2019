@@ -31,7 +31,7 @@ public class ProductController {
 		return ResponseEntity.ok(productService.getAllAvailable());
 	}
 
-	@GetMapping("/{creatorId}")
+	@GetMapping("/creator/{creatorId}")
 	public ResponseEntity<List<Product>> getAllProductsPerUser(@PathVariable int creatorId) {
 		try {
 			return ResponseEntity.ok(productService.getAllProductsByUser(creatorId));
@@ -43,7 +43,7 @@ public class ProductController {
 	}
 
 
-	@GetMapping("/{creatorId}/others")
+	@GetMapping("/creator/{creatorId}/others")
 	public ResponseEntity<List<Product>> getProductsForUsersExcept(@PathVariable int creatorId) {
 		try {
 			return ResponseEntity.ok(productService.getProductsForAllExcept(creatorId));
