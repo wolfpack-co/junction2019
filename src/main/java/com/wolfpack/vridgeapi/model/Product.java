@@ -39,6 +39,7 @@ public class Product {
 	@Enumerated(EnumType.STRING)
 	private ProductStatus status;
 
+	// FIXME add booking object and booking id... some day
 
 	public Product(){
 

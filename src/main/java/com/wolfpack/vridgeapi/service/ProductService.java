@@ -59,16 +59,18 @@ public class ProductService {
 		}
 	}
 
-	public void confirmBooking(Product product) {
-		Product p = productRepository.getOne(product.getId());
+	public void confirmBooking(int id) {
+		Product p = productRepository.getOne(id);
 		if (ProductStatus.BOOKING_PENDING.equals(p.getStatus())) {
 			p.setStatus(ProductStatus.BOOKING_CONFIRMED);
 			productRepository.save(p);
+		} else {
+			throw new IllegalArgumentException("Cannot confirm a booking that is not Pending");
 		}
 	}
 
-	public void completeBooking(Product product) {
-		Product p = productRepository.getOne(product.getId());
+	public void completeBooking(int id) {
+		Product p = productRepository.getOne(id);
 		if (ProductStatus.BOOKING_CONFIRMED.equals(p.getStatus())) {
 			int newQuantity = p.getQuantity() - p.getBookedQuantity();
 			ProductStatus newStatus = newQuantity > 0 ? ProductStatus.AVAILABLE : ProductStatus.TAKEN;
@@ -76,6 +78,8 @@ public class ProductService {
 			p.setQuantity(newQuantity);
 			p.setBookedQuantity(0);
 			productRepository.save(p);
+		} else {
+			throw new IllegalArgumentException("Cannot complete booking that has not been confirmed yet");
 		}
 	}
 }
