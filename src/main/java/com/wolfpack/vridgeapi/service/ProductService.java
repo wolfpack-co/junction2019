@@ -87,9 +87,15 @@ public class ProductService {
 		if (ProductStatus.BOOKING_CONFIRMED.equals(p.getStatus())) {
 			int newQuantity = p.getQuantity() - p.getBookedQuantity();
 			ProductStatus newStatus = newQuantity > 0 ? ProductStatus.AVAILABLE : ProductStatus.TAKEN;
+			if (newStatus.equals(ProductStatus.TAKEN)) {
+				// product which is with status TAKEN and NOT SHARED means a realized booking
+				Product newProduct = new Product(p.getName(), p.getBookedQuantity(), 0, p.getCreator(), null, p.getExpirationDate(),
+						false, newStatus, p.getType());
+			}
+
+			// update quantity and status of existing product
 			p.setStatus(newStatus);
 			p.setQuantity(newQuantity);
-			p.setBookedQuantity(0);
 			productRepository.save(p);
 		} else {
 			throw new IllegalArgumentException("Cannot complete booking that has not been confirmed yet");
