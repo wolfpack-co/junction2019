@@ -1,5 +1,7 @@
 package com.wolfpack.vridgeapi.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +19,8 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
+	private static final String DEFAULT_EXPIRATION_DATE_STRING = "2019-11-20";
+
 	@Autowired
 	public ProductService(ProductRepository productRepository) {
 		this.productRepository = productRepository;
@@ -31,8 +35,19 @@ public class ProductService {
 		return productRepository.findAllByStatus(ProductStatus.AVAILABLE);
 	}
 
-	public void addProduct(Product product) {
-		productRepository.save(product);
+	public Product addProduct(Product product) {
+		product.setStatus(ProductStatus.AVAILABLE);
+		if (product.getExpirationDate() == null) {
+			try {
+				Date date = new SimpleDateFormat("yyyy-MM-dd").parse(DEFAULT_EXPIRATION_DATE_STRING);
+				product.setExpirationDate(date);
+			}
+			catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return productRepository.save(product);
 	}
 
 	public void bookProduct(Product product) {
