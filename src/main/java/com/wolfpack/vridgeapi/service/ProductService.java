@@ -9,6 +9,7 @@ import com.wolfpack.vridgeapi.model.Product;
 import com.wolfpack.vridgeapi.model.ProductStatus;
 import com.wolfpack.vridgeapi.repository.ProductRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +17,7 @@ public class ProductService {
 
 	private final ProductRepository productRepository;
 
+	@Autowired
 	public ProductService(ProductRepository productRepository) {
 		this.productRepository = productRepository;
 	}
