@@ -1,16 +1,10 @@
 package com.wolfpack.vridgeapi.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.ManyToAny;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 // Dynamic update might have a performance overhead because it does not use the cached query.
@@ -30,8 +24,8 @@ public class Product {
 	@Column
 	private int bookedQuantity;
 
-	@Column
-	private String creator;
+	@ManyToOne
+	private User creator;
 
 	@Column
 	private String consumer;
@@ -46,10 +40,11 @@ public class Product {
 	private ProductStatus status;
 
 
-	public Product() {
+	public Product(){
+
 	}
 
-	public Product(String name, int quantity, int bookedQuantity, String creator,
+	public Product(String name, int quantity, int bookedQuantity, User creator,
 			String consumer, Date expirationDate, ProductStatus status) {
 		this.name = name;
 		this.quantity = quantity;
@@ -93,13 +88,11 @@ public class Product {
 		this.bookedQuantity = bookedQuantity;
 	}
 
-	public String getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(String creator) {
-		this.creator = creator;
-	}
+	public void setCreator(User creator) { this.creator = creator; }
 
 	public String getConsumer() {
 		return consumer;

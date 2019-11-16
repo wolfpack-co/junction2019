@@ -5,12 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import com.wolfpack.vridgeapi.model.Product;
 import com.wolfpack.vridgeapi.model.ProductStatus;
 import com.wolfpack.vridgeapi.repository.ProductRepository;
 
+import com.wolfpack.vridgeapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +17,14 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
 	private final ProductRepository productRepository;
+	private final UserRepository userRepository;
 
 	private static final String DEFAULT_EXPIRATION_DATE_STRING = "2019-11-20";
 
 	@Autowired
-	public ProductService(ProductRepository productRepository) {
+	public ProductService(ProductRepository productRepository, UserRepository userRepository) {
 		this.productRepository = productRepository;
-	}
-
-	@PostConstruct
-	private void init() {
-		productRepository.save(new Product("domat", 0, 0, "milko", "kolю", new Date(), ProductStatus.AVAILABLE));
+		this.userRepository = userRepository;
 	}
 
 	public List<Product> getAllAvailable() {
