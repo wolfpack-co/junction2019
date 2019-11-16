@@ -12,6 +12,22 @@ repositories {
 	mavenCentral()
 }
 
+task generateWebConfig {
+  doLast {
+	  new File("web.config").text = """<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<system.webServer>
+		<handlers>
+			<add name="httpPlatformHandler" path="*" verb="*" modules="httpPlatformHandler" resourceType="Unspecified" />
+		</handlers>
+		<httpPlatform processPath="%JAVA_HOME%\\bin\\java.exe"
+			arguments="-Djava.net.preferIPv4Stack=true -Dserver.port=%HTTP_PLATFORM_PORT% -jar &quot;%HOME%\\site\\wwwroot\\""" + project.name + "-" + version + """.jar&quot;">
+		</httpPlatform>
+	</system.webServer>
+</configuration>""";
+  }
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'org.springframework.boot:spring-boot-starter-web'

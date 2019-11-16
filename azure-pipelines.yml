@@ -19,7 +19,7 @@ steps:
     jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
-    tasks: 'build --stacktrace --info'
+    tasks: 'build generateWebConfig --stacktrace --info'
 
 # Diagnostics for stupid people
 #- script: |
