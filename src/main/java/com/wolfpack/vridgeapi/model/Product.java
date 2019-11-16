@@ -1,10 +1,17 @@
 package com.wolfpack.vridgeapi.model;
 
-import org.hibernate.annotations.DynamicUpdate;
-import org.hibernate.annotations.ManyToAny;
-
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import org.hibernate.annotations.DynamicUpdate;
 
 @Entity
 // Dynamic update might have a performance overhead because it does not use the cached query.
@@ -16,13 +23,13 @@ public class Product {
 	private int id;
 
 	@Column
-	private String name;
+	private String name = "Default product name";
 
 	@Column
-	private int quantity;
+	private int quantity = 0;
 
 	@Column
-	private int bookedQuantity;
+	private int bookedQuantity = 0;
 
 	@ManyToOne
 	private User creator;
@@ -31,22 +38,27 @@ public class Product {
 	private String consumer;
 
 	@Column
-	private Date expirationDate;
+	private Date expirationDate = new Date();
 
-	@Column(name="isShared", columnDefinition = "boolean default false")
+	@Column(name = "isShared", columnDefinition = "boolean default false")
 	private boolean isShared;
 
 	@Enumerated(EnumType.STRING)
-	private ProductStatus status;
+	private ProductStatus status = ProductStatus.AVAILABLE;
+
+
+	@Enumerated(EnumType.STRING)
+	private ProductType type = ProductType.PRODUCT;
+
 
 	// FIXME add booking object and booking id... some day
 
-	public Product(){
+	public Product() {
 
 	}
 
 	public Product(String name, int quantity, int bookedQuantity, User creator,
-			String consumer, Date expirationDate, boolean isShared, ProductStatus status) {
+			String consumer, Date expirationDate, boolean isShared, ProductStatus status, ProductType type) {
 		this.name = name;
 		this.quantity = quantity;
 		this.bookedQuantity = bookedQuantity;
@@ -55,6 +67,7 @@ public class Product {
 		this.expirationDate = expirationDate;
 		this.isShared = isShared;
 		this.status = status;
+		this.type = type;
 	}
 
 	public int getId() {
@@ -93,7 +106,9 @@ public class Product {
 		return creator;
 	}
 
-	public void setCreator(User creator) { this.creator = creator; }
+	public void setCreator(User creator) {
+		this.creator = creator;
+	}
 
 	public String getConsumer() {
 		return consumer;
@@ -125,5 +140,13 @@ public class Product {
 
 	public void setStatus(ProductStatus status) {
 		this.status = status;
+	}
+
+	public ProductType getType() {
+		return type;
+	}
+
+	public void setType(ProductType type) {
+		this.type = type;
 	}
 }

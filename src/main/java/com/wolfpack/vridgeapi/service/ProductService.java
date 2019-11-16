@@ -2,6 +2,7 @@ package com.wolfpack.vridgeapi.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +30,15 @@ public class ProductService {
 
 	public List<Product> getAllAvailable() {
 		return productRepository.findAllByStatus(ProductStatus.AVAILABLE);
+	}
+
+	public List<Product> getAllProductsByUser(int creatorId) {
+
+		List<Product> products = productRepository.findAllByCreatorId(creatorId);
+		if (!products.isEmpty()) {
+			return products;
+		}
+		return new ArrayList<>();
 	}
 
 	public Product addProduct(Product product) {

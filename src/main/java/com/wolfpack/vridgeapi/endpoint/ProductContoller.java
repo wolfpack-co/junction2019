@@ -31,6 +31,17 @@ public class ProductContoller {
 		return ResponseEntity.ok(productService.getAllAvailable());
 	}
 
+	@GetMapping("/{creatorId}")
+	public ResponseEntity<List<Product>> getAllProductsPerUser(@PathVariable int creatorId) {
+		try {
+			return ResponseEntity.ok(productService.getAllProductsByUser(creatorId));
+		}
+		catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+
+	}
+
 	@PostMapping
 	public ResponseEntity addProductToFridge(@RequestBody Product product) {
 		try {
@@ -77,5 +88,4 @@ public class ProductContoller {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
 		}
 	}
-
 }
