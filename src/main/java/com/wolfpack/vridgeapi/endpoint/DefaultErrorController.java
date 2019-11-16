@@ -11,7 +11,7 @@ public class DefaultErrorController implements ErrorController {
 
 	@RequestMapping("/error")
 	public String handleError(HttpServletRequest req, Exception ex) {
-		return "index";
+		return "index.html";
 	}
 
 	@Override
