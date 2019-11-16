@@ -1,5 +1,7 @@
 package com.wolfpack.vridgeapi.service;
 
+import java.util.List;
+
 import com.wolfpack.vridgeapi.model.User;
 import com.wolfpack.vridgeapi.repository.UserRepository;
 
@@ -15,6 +17,14 @@ public class UserService {
 	}
 
 	public User getUserById(int id) {
-		return userRepository.getOne(id);
+		User user = userRepository.findById(id);
+		if (user == null) {
+			throw new IllegalStateException("Cannot find user.");
+		}
+		return user;
+	}
+
+	public List<User> getAllUsers() {
+		return userRepository.findAll();
 	}
 }
