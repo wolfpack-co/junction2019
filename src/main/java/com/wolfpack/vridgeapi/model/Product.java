@@ -33,8 +33,8 @@ public class Product {
 	@Column
 	private Date expirationDate;
 
-//	@Column
-//	private boolean isAvailable;
+	@Column(name="isShared", columnDefinition = "boolean default false")
+	private boolean isShared;
 
 	@Enumerated(EnumType.STRING)
 	private ProductStatus status;
@@ -46,14 +46,14 @@ public class Product {
 	}
 
 	public Product(String name, int quantity, int bookedQuantity, User creator,
-			String consumer, Date expirationDate, ProductStatus status) {
+			String consumer, Date expirationDate, boolean isShared, ProductStatus status) {
 		this.name = name;
 		this.quantity = quantity;
 		this.bookedQuantity = bookedQuantity;
 		this.creator = creator;
 		this.consumer = consumer;
 		this.expirationDate = expirationDate;
-//		this.isAvailable = isAvailable;
+		this.isShared = isShared;
 		this.status = status;
 	}
 
@@ -109,6 +109,14 @@ public class Product {
 
 	public void setExpirationDate(Date expirationDate) {
 		this.expirationDate = expirationDate;
+	}
+
+	public boolean isShared() {
+		return isShared;
+	}
+
+	public void setShared(boolean shared) {
+		isShared = shared;
 	}
 
 	public ProductStatus getStatus() {
