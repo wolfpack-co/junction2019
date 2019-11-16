@@ -43,7 +43,7 @@ public class ProductService {
 	}
 
 	public List<Product> getProductsForAllExcept(int creatorId) {
-		List<Product> products = productRepository.findAllByCreatorIdNotEquals(creatorId);
+		List<Product> products = productRepository.findAllByCreatorIdNot(creatorId);
 		if (!products.isEmpty()) {
 			return products;
 		}
