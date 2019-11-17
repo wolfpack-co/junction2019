@@ -105,8 +105,10 @@ public class ProductService {
 			ProductStatus newStatus = newQuantity > 0 ? ProductStatus.AVAILABLE : ProductStatus.TAKEN;
 			if (newStatus.equals(ProductStatus.TAKEN)) {
 				// product which is with status TAKEN and NOT SHARED means a realized booking
-				Product newProduct = new Product(p.getName(), p.getBookedQuantity(), 0, p.getCreator(), null, p.getExpirationDate(),
-						false, newStatus, p.getType());
+				Product newProduct = new Product(p.getName(), p.getBookedQuantity(), 0, p.getConsumer(), null, p.getExpirationDate(),
+						false, ProductStatus.AVAILABLE, p.getType());
+
+				productRepository.save(newProduct);
 			}
 
 			// update quantity and status of existing product
