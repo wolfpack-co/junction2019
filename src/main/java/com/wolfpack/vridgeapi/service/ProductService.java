@@ -84,7 +84,7 @@ public class ProductService {
 			p.setStatus(ProductStatus.BOOKING_PENDING);
 			User consumer = userRepository.findById(product.getConsumer().getId());
 			p.setConsumer(consumer);
-			p.setShared(false);
+//			p.setShared(false);
 			p.setBookedQuantity(p.getQuantity());
 			productRepository.save(p);
 //		}
