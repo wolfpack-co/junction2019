@@ -81,7 +81,8 @@ public class ProductService {
 		}
 		else {
 			p.setStatus(ProductStatus.BOOKING_PENDING);
-			p.setConsumer(product.getConsumer());
+			User consumer = userRepository.findById(product.getConsumer().getId());
+			p.setConsumer(consumer);
 			p.setBookedQuantity(product.getBookedQuantity());
 			productRepository.save(product);
 		}
