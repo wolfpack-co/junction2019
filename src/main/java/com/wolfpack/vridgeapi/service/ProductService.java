@@ -75,7 +75,7 @@ public class ProductService {
 	}
 
 	public void bookProduct(Product product) {
-		Product p = productRepository.getOne(product.getId());
+		Product p = productRepository.findById(product.getId()).get();
 		if (product.getBookedQuantity() > p.getQuantity()) {
 			throw new IllegalArgumentException("The specified amount is not available");
 		}

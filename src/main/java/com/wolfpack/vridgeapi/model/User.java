@@ -27,6 +27,9 @@ public class User {
 	@Column
 	private int apartment;
 
+	@Column
+	private String avatarUrl;
+
 	public User() {
 
 	}
@@ -67,5 +70,13 @@ public class User {
 
 	public void setApartment(int apartment) {
 		this.apartment = apartment;
+	}
+
+	public String getAvatarUrl() {
+		return avatarUrl;
+	}
+
+	public void setAvatarUrl(String avatarUrl) {
+		this.avatarUrl = avatarUrl;
 	}
 }
