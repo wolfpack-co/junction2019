@@ -74,22 +74,24 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
-	public void bookProduct(Product product) {
-		Product p = productRepository.findById(product.getId()).get();
-		if (product.getBookedQuantity() > p.getQuantity()) {
-			throw new IllegalArgumentException("The specified amount is not available");
-		}
-		else {
+	public void bookProduct(int id, Product product) {
+		Product p = productRepository.findById(id).get();
+
+//		if (product.getBookedQuantity() > p.getQuantity()) {
+//			throw new IllegalArgumentException("The specified amount is not available");
+//		}
+//		else {
 			p.setStatus(ProductStatus.BOOKING_PENDING);
 			User consumer = userRepository.findById(product.getConsumer().getId());
 			p.setConsumer(consumer);
-			p.setBookedQuantity(product.getBookedQuantity());
-			productRepository.save(product);
-		}
+//			p.setShared(false);
+			p.setBookedQuantity(p.getQuantity());
+			productRepository.save(p);
+//		}
 	}
 
 	public void confirmBooking(int id) {
-		Product p = productRepository.getOne(id);
+		Product p = productRepository.findById(id).get();
 		if (ProductStatus.BOOKING_PENDING.equals(p.getStatus())) {
 			p.setStatus(ProductStatus.BOOKING_CONFIRMED);
 			productRepository.save(p);
@@ -99,7 +101,7 @@ public class ProductService {
 	}
 
 	public void completeBooking(int id) {
-		Product p = productRepository.getOne(id);
+		Product p = productRepository.findById(id).get();
 		if (ProductStatus.BOOKING_CONFIRMED.equals(p.getStatus())) {
 			int newQuantity = p.getQuantity() - p.getBookedQuantity();
 			ProductStatus newStatus = newQuantity > 0 ? ProductStatus.AVAILABLE : ProductStatus.TAKEN;
