@@ -81,7 +81,7 @@ public class ProductController {
 	public ResponseEntity bookProduct(@PathVariable("productId") int id, @RequestBody Product product) {
 		try {
 			// TODO set creator on product
-			productService.bookProduct(product);
+			productService.bookProduct(id);
 			return ResponseEntity.ok().build();
 		}
 		catch (Exception e) {
